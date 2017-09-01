@@ -44,7 +44,7 @@
             select.form-control(v-model='selectedList')
               option(v-for='list in lists', :value='list.id') {{list.name}}
           .form-group(v-if='selectedList')
-            button.btn.btn-primary(@click.prevent='addAction()') Add Action
+            button.btn.btn-primary(@click.prevent='addAction()', v-if='!loading') Add Action
 </template>
 
 <script>
@@ -56,6 +56,7 @@ export default {
   name: 'hello',
   data () {
     return {
+      loading: false,
       habiticaInfo: {
         apikey: '',
         userId: ''
@@ -94,6 +95,7 @@ export default {
     addAction () {
       let idModel = this.selectedList
       let callbackURL = API_URL + 'trello'
+      this.loading = true;
 
       window.Trello.post(`/webhooks/?idModel=${idModel}&callbackURL=${callbackURL}`,
         (response) => {
@@ -103,13 +105,16 @@ export default {
           })
           .then(response => {
             alert(response.data.message)
+            this.loading = false;
             this.changePage('action')
           })
           .catch(error => {
+            this.loading = false;
             alert(error.message)
           })
         },
         (response) => {
+          this.loading = false;
           alert('Error')
         })
     },
