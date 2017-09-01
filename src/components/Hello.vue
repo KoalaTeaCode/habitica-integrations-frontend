@@ -97,19 +97,17 @@ export default {
 
       window.Trello.post(`/webhooks/?idModel=${idModel}&callbackURL=${callbackURL}`,
         (response) => {
-          console.log(response)
-          console.log('Success')
-          // axios.post('actions', {
-          //   type: 'trello',
-          //   idModel: this.selectedList
-          // })
-          // .then(response => {
-          //   alert(response.data.message)
-          //   this.changePage('action')
-          // })
-          // .catch(error => {
-          //   alert(error.message)
-          // })
+          axios.post('actions', {
+            type: 'trello',
+            idModel: this.selectedList
+          })
+          .then(response => {
+            alert(response.data.message)
+            this.changePage('action')
+          })
+          .catch(error => {
+            alert(error.message)
+          })
         },
         (response) => {
           alert('Error')
