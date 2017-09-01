@@ -1,5 +1,7 @@
 # frontend
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/KoalaTeaCode/habitica-integrations-frontend.svg)](https://greenkeeper.io/)
+
 > A Vue.js project
 
 ## Build Setup
